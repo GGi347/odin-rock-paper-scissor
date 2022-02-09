@@ -19,7 +19,7 @@ function playRound(playerSelection, computerSelection) {
     const computerChoice = computerSelection();
     if (playerChoice === computerChoice) {
         console.log("It's a draw. Life is fair!")
-        return null;
+        return "draw";
     }else if (playerChoice === "rock" && computerChoice === "paper") {
         console.log("You Loose! Happens to the best of us!");
         return "computer";
@@ -38,8 +38,27 @@ function playRound(playerSelection, computerSelection) {
     } else if (playerChoice === "scissor" && computerChoice === "rock"){
         console.log("You Loose! Happens to the best of us!");
         return "computer";
-    }    
+    } else {
+        console.log("That is not a valid input. Enter again.")
+        return playRound(playerSelection, computerSelection);
+    } 
 
 }
 
-console.log(playRound(playerPlay, computerPlay));
+function game() {
+    let count = 0;
+    let numberOfRounds = 5;
+    for (let i = 0; i< numberOfRounds; i++) {
+        let answer = playRound(playerPlay, computerPlay);
+        if (answer.toLowerCase() === "player" || answer.toLowerCase() === "draw") {
+            count++;
+        }
+    }
+    if (count >= 3) {
+        console.log(`Congragulations! You won the game! Your Score: ${count}/${numberOfRounds}`);
+    } else {
+        console.log(`Sorry! You lost the game! Your Score: ${count}/${numberOfRounds}`);
+    }
+}
+
+game();
