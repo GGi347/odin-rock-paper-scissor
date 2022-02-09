@@ -5,7 +5,13 @@ function computerPlay() {
     console.log(computerChoice);
     return computerChoice;
 }
-const p = document.querySelector('p');
-alert(computerPlay());
+
+// prompt player to choose:
+function playerPlay() {
+    const playerChoice = prompt("Rock Paper Or Scissor?")
+    console.log(playerChoice.toLowerCase());
+    return playerChoice.toLowerCase();
+}
 
 
+playerPlay();
