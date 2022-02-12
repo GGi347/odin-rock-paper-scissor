@@ -12,28 +12,28 @@ function playRound(playerSelection, computerSelection) {
     const playerChoice = playerSelection
     const computerChoice = computerSelection();
     if (playerChoice === computerChoice) {
-        console.log("It's a draw. Life is fair!")
+        displayResult(playerChoice, computerChoice, "It's a draw. Life is fair!")
         return "draw";
     }else if (playerChoice === "rock" && computerChoice === "paper") {
-        console.log("You Loose! Happens to the best of us!");
+        displayResult(playerChoice, computerChoice,"You Loose! Happens to the best of us!");
         return "computer";
     } else if (playerChoice === "rock" && computerChoice === "scissors"){
-        console.log("You Win! Go Celebrate!");
+        displayResult(playerChoice, computerChoice,"You Win! Go Celebrate!");
         return "player";
     } else if (playerChoice === "paper" && computerChoice === "rock"){
-        console.log("You Win! Go Celebrate!");
+        displayResult("playerChoice, computerChoice,You Win! Go Celebrate!");
         return "player";
     } else if (playerChoice === "paper" && computerChoice === "scissors"){
-        console.log("You Loose! Happens to the best of us!");
+        displayResult(playerChoice, computerChoice,"You Loose! Happens to the best of us!");
         return "computer";
     } else if (playerChoice === "scissors" && computerChoice === "paper"){
-        console.log("You Win! Go Celebrate!");
+        displayResult(playerChoice, computerChoice,"You Win! Go Celebrate!");
         return "player";
     } else if (playerChoice === "scissors" && computerChoice === "rock"){
-        console.log("You Loose! Happens to the best of us!");
+        displayResult(playerChoice, computerChoice,"You Loose! Happens to the best of us!");
         return "computer";
     } else {
-        console.log("That is not a valid input. Enter again.")
+        displayResult(playerChoice, computerChoice,"That is not a valid input. Enter again.")
         
     } 
 
@@ -65,3 +65,16 @@ buttons.forEach(btn => {
     );
 });
        
+
+function displayResult(playerChoice, computerChoice, msg) {
+    const resultDiv = document.querySelector("#round-result");
+    resultDiv.textContent = msg;
+
+    const playerDiv = document.querySelector("#player-choice");
+    playerDiv.style.textTransform = "capitalize";
+    playerDiv.textContent = `You Choose: ${playerChoice}`;
+
+    const computerDiv = document.querySelector("#computer-choice");
+    computerDiv.style.textTransform = "capitalize";
+    computerDiv.textContent = `Computer Choose: ${computerChoice}`;
+}

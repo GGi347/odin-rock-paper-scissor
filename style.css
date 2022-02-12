@@ -38,3 +38,7 @@ h1 {
     border-radius: 4px;
     box-shadow: 5px 5px #4A261E;
 }
+
+.round-result {
+    height: 300px;
+}
