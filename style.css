@@ -27,18 +27,15 @@ h1 {
     flex-direction: column;
     gap: 16px;
     flex-wrap: wrap;
+    padding: 10px 5px;
 }
 .btn {
     width: 200px;
     height: 40px;
     background-color: #4A261E;
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 500;
     border: 0;
     border-radius: 4px;
     box-shadow: 5px 5px #4A261E;
-}
-
-.round-result {
-    height: 300px;
 }
