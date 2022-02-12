@@ -1,3 +1,40 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
 body {
     background-image: url('background-img.jpg');
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    gap: 40px;
+    padding-top: 220px;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: 800;
+    font-family:Georgia, 'Times New Roman', Times, serif
+
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.btn {
+    width: 200px;
+    height: 40px;
+    background-color: #4A261E;
+    font-size: 24px;
+    font-weight: 400;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: 5px 5px #4A261E;
 }
