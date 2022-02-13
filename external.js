@@ -1,8 +1,7 @@
 const OPTIONS = ["rock", "paper", "scissors"];
-const TOTALROUNDS = 5;
-let numberOfRounds = 0; 
 let playerScore = 0;
 let computerScore = 0;
+
 
 function computerPlay() {
     const computerChoice = OPTIONS[Math.floor(Math.random() * OPTIONS.length)];
@@ -15,74 +14,84 @@ function playRound(playerSelection, computerSelection) {
     const playerChoice = playerSelection
     const computerChoice = computerSelection();
     let answer;
+    let msg;
     if (playerChoice === computerChoice) {
-        displayResult(playerChoice, computerChoice, "It's a draw. Life is fair!")
+        msg = "It's a draw. Life is fair!";
         answer = "draw";
     }else if (playerChoice === "rock" && computerChoice === "paper") {
-        displayResult(playerChoice, computerChoice,"You Loose! Happens to the best of us!");
+        msg = "You Loose! Paper wraps rock.";
         answer  = "computer";
     } else if (playerChoice === "rock" && computerChoice === "scissors"){
-        displayResult(playerChoice, computerChoice,"You Win! Go Celebrate!");
+        msg = "You Win! Rock smashes scissors.";
         answer =  "player";
     } else if (playerChoice === "paper" && computerChoice === "rock"){
-        displayResult(playerChoice, computerChoice,"You Win! Go Celebrate!");
+        msg = "You win! Paper wraps rock.";
         answer =  "player";
     } else if (playerChoice === "paper" && computerChoice === "scissors"){
-        displayResult(playerChoice, computerChoice,"You Loose! Happens to the best of us!");
+        msg = "You Loose! Scissors cut paper.";
         answer = "computer";
     } else if (playerChoice === "scissors" && computerChoice === "paper"){
-        displayResult(playerChoice, computerChoice,"You Win! Go Celebrate!");
+        msg = "You Win! Scissors cut paper.";
         answer =  "player";
     } else if (playerChoice === "scissors" && computerChoice === "rock"){
-        displayResult(playerChoice, computerChoice,"You Loose! Happens to the best of us!");
+        msg = "You Loose! Rock smashes scissors.";
         answer =  "computer";
     } 
-    return answer;
+    displayResult(computerChoice, msg);
+    game(answer);
+    
 
 }
+
 
 function game(answer) {
     if (answer.toLowerCase() === "player") {
         playerScore += 1;
-    } else if (answer.toLowerCase() === "draw") {
-        playerScore += 1;
+    } else if (answer.toLowerCase() === "computer") {
         computerScore += 1;
-    } else {
-        computerScore += 1;
-    }  
-    numberOfRounds += 1;  
-    if (numberOfRounds === TOTALROUNDS) {
-        let msg;
-        if (playerScore > computerScore) {
-            msg  = (`Congragulations! You won the game!`);
-        } else if (computerScore > playerScore){
-            msg  = (`Sorry! You lost the game!`);
+    } 
+    setScore();
+    if (playerScore === 5 || computerScore === 5){
+        let won;
+        if (playerScore === 5) {
+            won = true;
+            msg  = (`Congragulations! You won the game.`);
+        } else if (computerScore === 5){
+            won = false;
+            msg  = (`Sorry! You lost the game.`);
         }
-        else {
-            msg = (`It is a draw!`);
-        }
-        numberOfRounds = 0;
+ 
         computerScore = 0;
         playerScore = 0;
-        return msg;
-    }    
+        displayResult("", msg, won);
+       
+    }
     
 }
-       
-
-function displayResult(playerChoice="", computerChoice="", msg="") {
-    const resultDiv = document.querySelector("#round-result");
-    resultDiv.textContent = msg;
-
-    const playerDiv = document.querySelector("#player-choice");
-    playerDiv.style.textTransform = "capitalize";
-    playerChoice ? playerDiv.textContent = `You Choose: ${playerChoice}`: " ";
-
+ //displays result on the screen.       
+function displayResult(computerChoice="", msg="", won) {
     const computerDiv = document.querySelector("#computer-choice");
-    computerDiv.style.textTransform = "capitalize";
-    computerDiv.textContent = `Computer Choose: ${computerChoice}`;
+    const resultDiv = document.querySelector("#result");
+   
+    if (computerChoice) {
+        resultDiv.style.color = "black";
+        computerDiv.style.textTransform = "capitalize";
+        computerDiv.textContent = `Computer Choose: ${computerChoice}`;
+    }
+    else {       
+        if(won) {
+            resultDiv.style.color = "green";
+    
+        } else {
+            resultDiv.style.color = "red";
+    
+        }
+        computerDiv.textContent = "";
+    }
+    resultDiv.textContent = msg;
+    
 }
-
+//sets the score on the screen
 function setScore() {
     const yourScore = document.querySelector("#your-score");
     yourScore.textContent = `Your Score ${playerScore}`;
@@ -90,23 +99,22 @@ function setScore() {
     const compScore = document.querySelector("#computer-score");
     compScore.textContent = `Computer Score ${computerScore}`;
 
-    const roundNum = document.querySelector("#num-of-rounds");
-    roundNum.textContent = `Number of Rounds Remaining ${TOTALROUNDS - numberOfRounds}`;
+    
 }
 
 
-const buttons = document.querySelectorAll(".btn");
+const rock = document.querySelector("#rock");
+rock.addEventListener('click', () => playRound("rock", computerPlay));
 
-buttons.forEach(btn => {
-    btn.addEventListener(
-        'click', (e) => {     
-            let answer = playRound(e.target.textContent.toLowerCase(), computerPlay);           
-            let msg = game(answer);
-            setScore();
-            if (numberOfRounds == 0) {
-                displayResult();
-            }
-            if(msg) alert(msg);
-        }
-    );
-});
+
+const paper = document.querySelector("#paper");
+paper.addEventListener('click', () => playRound("paper", computerPlay));
+
+
+const scissors = document.querySelector("#scissors");
+scissors.addEventListener('click', () => playRound("scissors", computerPlay));
+
+const reloadBtn = document.querySelector("#reload");
+reloadBtn.addEventListener(
+    'click', () => location.reload()
+);
